@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    config:
+      uri: http://${CONFIG_SERVER_HOST:localhost}:8888
+      username: gypsee
+      password: samplepassword(better to keep this encrypted)

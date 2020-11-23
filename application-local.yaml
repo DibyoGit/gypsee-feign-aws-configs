@@ -1,0 +1,55 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://gypsee-app:passw0rd@${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8001}/eureka/
+    register-with-eureka: ${ENABLE_SERVICE_REGISTRATION:true}
+    fetchRegistry: true
+  instance:
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+    instanceId: ${HOST_IP:127.0.0.1}
+    ip-address: ${HOST_IP:127.0.0.1}
+    hostname: ${HOST_NAME:localhost}
+
+spring:
+  data:
+    cassandra:
+      contact-points: 13.234.113.134
+      port: 9042
+      keyspace-name: gypsee_microservice_name
+      username:
+      password:
+      schema-action: CREATE_IF_NOT_EXISTS
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 13.235.127.173:9092,13.127.191.216:9092,13.234.183.20:9092
+          auto-create-topics: true
+          configuration:
+            auto.offset.reset: latest
+
+
+gypsee
+  remote:
+    services:
+      transaction
+        name: gypsee-transaction
+  cache:
+    provider: redis
+    redis:
+      connection:
+        use-pool: true
+        lettuce:
+          pool:
+            max-idle: 8
+            min-idle: 0
+            max-active: 7
+            max-wait: -1
+            shutdown-timeout: 200
+      server:
+        password: ${CACHE_PASSWORD:redisPassword}
+        standalone:
+          host: ${CACHE_HOST:13.223.134.21}
+          port: ${CACHE_PORT:6379}
